@@ -256,11 +256,10 @@
         }
     });
 
-    /* Use cookie to remember user preference of show/hide stats */
+    /* Use cookie to decide user preference of show/hide stats */
     var showScrumStats = function() {
-        var showStats = $.cookie('show_sprint_stats');
 
-        if(showStats == 'false') {
+        if($.cookie('show_sprint_stats') == 'false') {
             //off
             $('.stats-container').addClass('offscreen-hide');
             $('.stats-toggle').removeClass('active');
