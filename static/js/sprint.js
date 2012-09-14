@@ -214,6 +214,7 @@
         $('#bugs_table').stupidtable();
         $('#backlog_table').stupidtable();
         $('td.ttip').tooltip();
+        showScrumStats();
     };
 
     var cur_key = null;
@@ -245,10 +246,30 @@
     $(".stats-toggle").click(function() {
         $('.stats-container').toggleClass('offscreen-hide');
         if ($('.stats-container').hasClass('offscreen-hide')) {
+            //off
             $(this).removeClass('active');
+            $.cookie('show_sprint_stats', 'false', { expires: 7 });
         } else {
+            //on
             $(this).addClass('active');
+            $.cookie('show_sprint_stats', 'true', { expires: 7 });
         }
     });
+
+    /* Use cookie to remember user preference of show/hide stats */
+    var showScrumStats = function() {
+        var showStats = $.cookie('show_sprint_stats');
+
+        if(showStats == 'false') {
+            //off
+            $('.stats-container').addClass('offscreen-hide');
+            $('.stats-toggle').removeClass('active');
+        } else {
+            //on
+            $('.stats-container').removeClass('offscreen-hide');
+            $('.stats-toggle').addClass('active');
+
+        }
+    };
 
 })(jQuery);

@@ -6,7 +6,7 @@
   <div class="row">
     <div class="span12">
 
-      <button class="btn btn-primary pull-right active stats-toggle" data-toggle="button">Stats</button>
+      <button class="btn btn-primary pull-right stats-toggle" data-toggle="button">Stats</button>
 
       {% if perms.scrum.change_sprint %}
         <a class="btn btn-primary pull-right"
@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <div class="stats-container">
+  <div class="stats-container offscreen-hide">
     <div class="row">
       <div class="span3">
         <h2>Numbers</h2>
@@ -83,23 +83,25 @@
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.flot.pie.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.flot.resize.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.stupidtable.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.cookie.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/sprint.js"></script>
   <script type="text/javascript">
     $(function(){
-      "use strict";
+        "use strict";
 
-      var BUGS_DATA = {{ bugs_data_json|safe }};
-      init_sprint();
-      new Burndown('#burndown', BUGS_DATA);
-      new PieFlot('#component-pie', BUGS_DATA.components);
-      new PieFlot('#user-pie', BUGS_DATA.users);
-      new PieFlot('#status-pie', BUGS_DATA.basic_status, {
-        color: {
-          open: "rgb(237, 194, 64)",
-          closed: "rgb(77, 167, 77)",
-          assigned: "rgb(175, 216, 248)"
-        }
-      });
+        var BUGS_DATA = {{ bugs_data_json|safe }};
+        init_sprint();
+        new Burndown('#burndown', BUGS_DATA);
+        new PieFlot('#component-pie', BUGS_DATA.components);
+        new PieFlot('#user-pie', BUGS_DATA.users);
+        new PieFlot('#status-pie', BUGS_DATA.basic_status, {
+            color: {
+                open: "rgb(237, 194, 64)",
+                closed: "rgb(77, 167, 77)",
+                assigned: "rgb(175, 216, 248)"
+            }
+        });
     });
   </script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 {% endblock %}
